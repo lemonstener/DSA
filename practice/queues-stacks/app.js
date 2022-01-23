@@ -39,6 +39,9 @@ class Queue {
   peek() {
     return this.head;
   }
+  isEmpty() {
+    return !this.head && !this.tail;
+  }
 }
 
 const line = new Queue();
@@ -84,6 +87,9 @@ class Stack {
   }
   peek() {
     return this.tail;
+  }
+  isEmpty() {
+    return !this.head && !this.tail;
   }
 }
 
