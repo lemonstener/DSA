@@ -7,7 +7,7 @@ class Node {
   }
 }
 
-// LINKED LIST CLASS
+// SINGLY LINKED LIST CLASS
 
 class LinkedList {
   constructor() {
