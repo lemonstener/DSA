@@ -161,3 +161,56 @@ const searchInsert = (nums, target) => {
 
   return left;
 };
+
+// LENGTH OF LAST WORD
+
+const lenghtOfLastWord = (s) => {
+  let result = 0;
+  let i = s.length - 1;
+
+  while (i > -1) {
+    if (s[i] !== " ") {
+      result++;
+    } else {
+      if (result !== 0) break;
+    }
+    i--;
+  }
+
+  return result;
+};
+
+// BEST TIME TO BUY AND SELL STOCK
+
+const maxProfit = (prices) => {
+  let min = prices[0];
+  let profit = 0;
+
+  for (let i = 1; i < prices.length; i++) {
+    min = Math.min(min, prices[i]);
+    profit = Math.max(profit, prices[i] - min);
+  }
+
+  return profit;
+};
+
+// PLUS ONE
+
+// [1,3,4] ---> [1,3,5]
+// [1,2,9] ---> [1,3,0]
+// [9,9] ---> [1,0,0]
+
+const plusOne = (digits) => {
+  for (let i = digits.length - 1; i > -1; i--) {
+    digits[i] = digits[i] + 1;
+    if (digits[i] !== 10) {
+      break;
+    } else {
+      digits[i] = 0;
+    }
+  }
+
+  if (digits.every((d) => d === 0)) digits.unshift(1);
+
+  return digits;
+};
