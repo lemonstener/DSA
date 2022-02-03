@@ -214,3 +214,193 @@ const plusOne = (digits) => {
 
   return digits;
 };
+
+// CLIMBING STAIRS
+// fibonacci sequence
+
+const climbStairs = (n) => {
+  const arr = [0, 1, 2, 3];
+  for (let i = 4; i <= n; i++) {
+    arr[i] = arr[i - 1] + arr[i - 2];
+  }
+  return arr[n];
+};
+
+// REMOVE DUPLICATES FROM SORTED LINKED LIST
+
+const deleteDuplicates = (head) => {
+  if (!head) return head;
+  let previousNode = head;
+  let currentNode = head.next;
+  let currentVal = head.val;
+
+  while (currentNode) {
+    if (currentVal === currentNode.val) {
+      previousNode.next = currentNode.next;
+    } else {
+      currentVal = currentNode.val;
+      previousNode = currentNode;
+    }
+    currentNode = currentNode.next;
+  }
+
+  return head;
+};
+
+// MERGE SORTED ARRAYS
+
+const mergeSortedArrays = function (nums1, m, nums2, n) {
+  let output = [];
+  let i = 0;
+  let j = 0;
+
+  // get rid of 0s
+  for (let i = nums1.length - 1; i >= 0; i--) {
+    if (nums1[i] === 0) {
+      nums1.pop();
+    } else {
+      break;
+    }
+  }
+
+  while (i < nums1.length && j < nums2.length) {
+    if (nums1[i] < nums2[j]) {
+      output.push(nums1[i]);
+      i++;
+    } else {
+      output.push(nums2[j]);
+      j++;
+    }
+    console.log(`Output ===> ${output}`);
+  }
+
+  while (i < m) {
+    output.push(nums1[i]);
+    i++;
+    console.log(`Output ===> ${output}`);
+  }
+  while (j < n) {
+    output.push(nums2[j]);
+    j++;
+    console.log(`Output ===> ${output}`);
+  }
+
+  console.log(output);
+  return output;
+};
+
+// INORDER TRAVERSAL
+
+const inorderTraversal = (root) => {
+  if (root === []) return [];
+  const output = [];
+
+  const traverse = (node) => {
+    if (!node) return;
+    traverse(node.left);
+    output.push(node.val);
+    traverse(node.right);
+  };
+
+  traverse(root);
+  return output;
+};
+
+// SAME TREE
+
+const isSameTree = (p, q) => {
+  if (!p && !q) return true;
+  if (!p || !q) return false;
+  if (p.val !== q.val) return false;
+
+  return isSameTree(q.left, p.left) && isSameTree(q.right, p.right);
+};
+
+// MAX DEPTH OF BINARY TREE
+
+const maxDepth = (node) => {
+  if (!node) return -1;
+
+  const leftSide = maxDepth(node.left);
+  const rightSide = maxDepth(node.right);
+
+  if (leftSide > rightSide) {
+    return leftSide + 1;
+  } else {
+    return rightSide + 1;
+  }
+};
+
+// PATH SUM
+
+const hasPathSum = (root, targetSum) => {
+  if (!root) return false;
+
+  targetSum -= root.val;
+
+  if (!root.left && !root.right) return targetSum === 0;
+
+  return hasPathSum(root.left, targetSum) || hasPathSum(root.right, targetSum);
+};
+
+// VALID PALINDROME
+
+const isPalindrome = function (s) {
+  const newStr = s.replace(/[^0-9a-z]/gi, "");
+  console.log(newStr);
+
+  let left = 0;
+  let right = newStr.length - 1;
+
+  while (left < right) {
+    if (newStr[left].toLowerCase() !== newStr[right].toLowerCase()) {
+      return false;
+    } else {
+      left++;
+      right--;
+    }
+  }
+
+  return true;
+};
+
+// SINGLE NUMBER
+
+const singleNumber = function (nums) {
+  const found = new Set();
+  const doubles = new Set();
+
+  for (let num of nums) {
+    if (!found.has(num)) {
+      found.add(num);
+    } else {
+      doubles.add(num);
+    }
+  }
+
+  for (let num of nums) {
+    if (!doubles.has(num)) return num;
+  }
+};
+
+// INTERSECTION OF TWO LINKED LISTS
+
+const getIntersectionNode = function (headA, headB) {
+  const nodeSet = new Set();
+
+  let currentNode = headA;
+
+  while (currentNode) {
+    nodeSet.add(currentNode);
+    currentNode = currentNode.next;
+  }
+
+  currentNode = headB;
+
+  while (currentNode) {
+    if (nodeSet.has(currentNode)) return currentNode;
+    currentNode = currentNode.next;
+  }
+
+  return null;
+};
