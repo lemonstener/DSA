@@ -404,3 +404,246 @@ const getIntersectionNode = function (headA, headB) {
 
   return null;
 };
+
+// REVERSE LINKED LIST IN PLACE
+
+const reverseLinkedList = (list) => {
+  let currentNode = list.head;
+  let previousNode = null;
+  let tempNode = null;
+
+  while (currentNode) {
+    // 1
+    tempNode = currentNode;
+    // null
+    currentNode.next = previousNode;
+    // 2
+    currentNode = tempNode.next;
+    // 1
+    previousNode = tempNode;
+  }
+
+  list.head = previousNode;
+  return list;
+};
+
+// SORT SORTED LISTS
+
+// 1 -> 5 -> 7
+// 3 -> 4 -> 6
+
+const sortSortedLists = (list1, list2) => {
+  let currentNode = list1.head;
+  const leftArr = [];
+  const rightArr = [];
+
+  while (currentNode) {
+    leftArr.push(currentNode);
+    currentNode = currentNode.next;
+  }
+
+  currentNode = list2.head;
+  while (currentNode) {
+    rightArr.push(currentNode);
+    currentNode = currentNode.next;
+  }
+
+  const combinedLists = mergeSort(leftArr, rightArr);
+  let previousNode = combinedLists[0];
+
+  for (let i = 1; i < combinedLists.length; i++) {
+    currentNode = combinedLists[i];
+    previousNode.next = currentNode;
+    previousNode = currentNode;
+  }
+
+  // RETURN NEW LINKED LIST WHERE HEAD = combinedLists[0]
+
+  const mergeSort = (arr1, arr2) => {
+    let i = 0;
+    let j = 0;
+    const output = [];
+
+    while (i < arr1.length && j < arr2.length) {
+      if (arr1[i].val < arr2[j].val) {
+        output.push(arr1[i]);
+        i++;
+      } else {
+        output.push(arr2[j]);
+        j++;
+      }
+    }
+
+    while (i < arr1.length) {
+      output.push(arr1[i]);
+      i++;
+    }
+    while (j < arr2.length) {
+      output.push(arr2[j]);
+      j++;
+    }
+
+    return output;
+  };
+};
+
+// PIVOT AROUND VALUE
+
+const pivot = (list, val) => {
+  const leftSide = [];
+  const rightSide = [];
+
+  let currentNode = list.head;
+
+  while (currentNode) {
+    if (currentNode.val < val) {
+      leftSide.push(currentNode);
+    } else {
+      rightSide.push(currentNode);
+    }
+  }
+
+  for (let node of rightSide) {
+    leftSide.push(rightSide.pop());
+  }
+
+  let previousNode = leftSide[0];
+  currentNode = leftSide[1];
+
+  while (currentNode) {
+    previousNode.next = currentNode;
+    currentNode = currentNode.next;
+  }
+
+  list.head = leftSide[0];
+  return list;
+};
+
+// MERGE SORTED LISTS
+
+// 2 -> 7 -> 8
+// 4 -> 5 -> 9
+
+const mergeSortedLists = (list1, list2) => {
+  const head = new ListNode();
+
+  let previousNode = head;
+  let leftNode = list1;
+  let rightNode = list2;
+
+  while (leftNode && rightNode) {
+    if (leftNode.val < rightNode.val) {
+      previousNode.next = leftNode;
+      previousNode = leftNode;
+      leftNode = leftNode.next;
+    } else {
+      previousNode.next = rightNode;
+      previousNode = rightNode;
+      rightNode = rightNode.next;
+    }
+  }
+
+  while (leftNode) {
+    previousNode.next = leftNode;
+    previousNode = leftNode;
+    leftNode = leftNode.next;
+  }
+  while (rightNode) {
+    previousNode.next = rightNode;
+    previousNode = rightNode;
+    rightNode = rightNode.next;
+  }
+
+  return head.next;
+};
+
+// LINKED LIST CYCLE
+
+const hasCycle = (head) => {
+  if (!head.next) return false;
+
+  let currentNode = head;
+  const seen = new Set();
+
+  while (currentNode) {
+    if (seen.has(currentNode)) return false;
+
+    seen.add(currentNode);
+    currentNode = currentNode.next;
+  }
+
+  return true;
+};
+
+// REMOVE ELEMENTS
+
+const removeElements = (head, val) => {
+  if (!head) return head;
+
+  while (head) {
+    if (head.val === val) {
+      head = head.next;
+    } else {
+      break;
+    }
+  }
+
+  if (!head) return null;
+
+  let previousNode = head;
+  let currentNode = previousNode.next;
+
+  while (currentNode) {
+    if (currentNode.val === val) {
+      previousNode.next = currentNode.next;
+      currentNode = currentNode.next;
+    } else {
+      previousNode = currentNode;
+      currentNode = currentNode.next;
+    }
+  }
+
+  return head;
+};
+
+// PALINDROMIC LINKED LIST
+
+const isPalindromicLinkedList = (head) => {
+  const nodeArr = [];
+
+  let currentNode = head;
+
+  while (currentNode) {
+    nodeArr.push(currentNode);
+    currentNode = currentNode.next;
+  }
+
+  let left = 0;
+  let right = nodeArr.length - 1;
+
+  while (left < right) {
+    if (nodeArr[left].val !== nodeArr[right].val) return false;
+    left++;
+    right--;
+  }
+
+  return true;
+};
+
+// MIDDLE NODE
+
+const getMiddleNode = (head) => {
+  let tortoise = head;
+  let hare = head.next;
+
+  while (hare) {
+    tortoise = tortoise.next;
+    if (!hare.next) {
+      break;
+    } else {
+      hare = hare.next.next;
+    }
+  }
+
+  return tortoise;
+};
