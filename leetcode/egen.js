@@ -217,3 +217,49 @@ function solution(inputArray) {
   }
   return maxDiff;
 }
+// IPV4 ADDRESS
+function solution(inputString) {
+  if (inputString[0] === ".") return false;
+  const symbols = "1234567890.";
+  let ipArr = [];
+  let dots = 0;
+  let currNum = "";
+  for (let char of inputString) {
+    if (!symbols.includes(char)) {
+      console.log(symbols.includes(char));
+      return false;
+    }
+    if (char === ".") {
+      dots++;
+      if (
+        parseInt(currNum) > 255 ||
+        parseInt(currNum) < 0 ||
+        dots > 3 ||
+        currNum === "00" ||
+        currNum === ""
+      )
+        return false;
+      if (currNum.length > 1 && currNum[0] === "0") return false;
+      ipArr.push(currNum);
+      ipArr.push(char);
+      currNum = "";
+    } else {
+      currNum += char;
+    }
+  }
+  ipArr.push(currNum);
+  if (
+    parseInt(currNum) > 255 ||
+    parseInt(currNum) < 0 ||
+    dots > 3 ||
+    currNum === "00" ||
+    currNum === ""
+  )
+    return false;
+  if (currNum.length > 1 && currNum[0] === "0") return false;
+  console.log(ipArr);
+  return ipArr.length === 7;
+}
+// AVOID OBSTACLES
+const solution = (inputArray, jump = 2) =>
+  inputArray.every((val) => val % jump) ? jump : solution(inputArray, ++jump);
