@@ -263,3 +263,18 @@ function solution(inputString) {
 // AVOID OBSTACLES
 const solution = (inputArray, jump = 2) =>
   inputArray.every((val) => val % jump) ? jump : solution(inputArray, ++jump);
+// BLURRED IMAGE
+function solution(image) {
+  var blured = [];
+  for (var i = 1; i < image.length - 1; i++) {
+    var row = [];
+    for (var j = 1; j < image[i].length - 1; j++) {
+      var average = image[i - 1][j - 1] + image[i - 1][j] + image[i - 1][j + 1];
+      average += image[i][j - 1] + image[i][j] + image[i][j + 1];
+      average += image[i + 1][j - 1] + image[i + 1][j] + image[i + 1][j + 1];
+      row.push(Math.floor(average / 9));
+    }
+    blured.push(row);
+  }
+  return blured;
+}

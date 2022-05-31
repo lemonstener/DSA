@@ -647,3 +647,75 @@ const getMiddleNode = (head) => {
 
   return tortoise;
 };
+
+// weird egen task
+
+const evalPairs = [1, 4, 3, 7, 5, 6, 5, 8, 2];
+const evalPairs2 = [3, 3, 5, 8, 2, 4, 4, 8];
+
+function contPairs(a, m, k) {
+  let output = 0;
+  let index = 0;
+  const found = new Set();
+
+  while (index + m <= a.length) {
+    for (let i = index; i < index + m; i++) {
+      if (found.has(k - a[i])) {
+        output++;
+      } else {
+        found.add(a[i]);
+      }
+    }
+    index++;
+    found.clear();
+  }
+  console.log(index);
+  return output;
+}
+
+// other weird egen task
+
+const concatLex = (s1, s2) => {
+  let output = "";
+
+  const letters1 = freqCounter(s1);
+  const letters2 = freqCounter(s2);
+
+  let l = 0;
+  let r = 0;
+
+  while (l < s1.length && r < s2.length) {
+    const lChar = s1[l];
+    const rChar = s2[r];
+    let fillLeft = false;
+
+    if (letters1[lChar] < letters2[rChar]) {
+      fillLeft = true;
+    } else if (lChar < rChar) {
+      fillLeft = true;
+    } else if (letters1[l] === letters2[r] && s1[l] === s2[r]) {
+      fillLeft = true;
+    }
+
+    if (fillLeft) {
+      output += s1[l];
+      l++;
+    } else {
+      output += s2[r];
+      r++;
+    }
+  }
+
+  console.log(l, r);
+  l < s1.length - 1 ? (output += s1.slice(l)) : (output += s2.slice(r));
+
+  return output;
+};
+
+const freqCounter = (str) => {
+  const letters = {};
+  for (let char of str) {
+    letters[char] ? letters[char]++ : (letters[char] = 1);
+  }
+  return letters;
+};
