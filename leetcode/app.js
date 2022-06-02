@@ -719,3 +719,36 @@ const freqCounter = (str) => {
   }
   return letters;
 };
+// SERVER HOURS
+
+const hours = ["12:30", "14:00", "19:55"];
+// shutoff  = 11:45
+
+const calculateCost = (arr, shutOff) => {
+  let total = 0;
+
+  const stopHour =
+    shutOff.slice(0, 2) === "00" ? 24 : parseInt(shutOff.slice(0, 2));
+  const stopMinutes = parseInt(shutOff.slice(3));
+
+  for (let val of arr) {
+    let startHour = parseInt(val.slice(0, 2));
+    const startMinutes = parseInt(val.slice(3));
+
+    if (startMinutes !== 0) {
+      total += 60 - startMinutes;
+      startHour++;
+    }
+    if (stopHour < startHour - 1) {
+      startHour = 24 - startHour + stopHour;
+      total += startHour * 60;
+    } else {
+      total += (stopHour - startHour) * 60;
+    }
+
+    total += stopMinutes;
+    console.log(total);
+  }
+
+  return total;
+};
