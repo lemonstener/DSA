@@ -752,3 +752,23 @@ const calculateCost = (arr, shutOff) => {
 
   return total;
 };
+
+// TOTAL STRING SUFFIX
+
+const strings = ["man", "door", "batman", "backdoor"];
+
+const strSuffix = (arr) => {
+  let total = 0;
+  const words = new Set(arr);
+
+  for (let word of strings) {
+    for (let j = word.length - 1; j >= 0; j--) {
+      if (words.has(word.slice(j))) {
+        total++;
+        continue;
+      }
+    }
+  }
+
+  return total - strings.length;
+};
