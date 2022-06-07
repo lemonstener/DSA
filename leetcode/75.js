@@ -110,3 +110,41 @@ const freqCounter = (str) => {
   }
   return obj;
 };
+
+// GROUP ANAGRAMS
+
+var groupAnagrams = function (strs) {
+  const obj = {};
+  for (let str of strs) {
+    const sortedStr = str.split("").sort().toString();
+    obj[sortedStr] ? obj[sortedStr].push(str) : (obj[sortedStr] = [str]);
+  }
+  const arr = [];
+  for (let kv in obj) arr.push(obj[kv]);
+  return arr;
+};
+
+// VALID BRACKETS
+
+var isValid = function (s) {
+  if (s[0] === "}" || s[0] === "]" || s[0] === ")") return false;
+  const values = {
+    "{": "}",
+    "[": "]",
+    "(": ")",
+  };
+  let currStr = [];
+  for (let char of s) {
+    if (char === "}" || char === "]" || char === ")") {
+      if (char !== values[currStr.pop()]) return false;
+    } else {
+      currStr.push(char);
+    }
+  }
+
+  if (currStr.length === 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
