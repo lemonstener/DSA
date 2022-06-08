@@ -148,3 +148,25 @@ var isValid = function (s) {
     return false;
   }
 };
+
+// MERGE INTERVALS
+
+var merge = function (intervals) {
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  const result = [];
+  let intervalSoFar = intervals[0];
+
+  for (let i = 1; i < intervals.length; i++) {
+    const curr = intervals[i];
+    if (curr[0] <= intervalSoFar[1]) {
+      intervalSoFar[1] = Math.max(curr[1], intervalSoFar[1]);
+    } else {
+      result.push(intervalSoFar);
+      intervalSoFar = curr;
+    }
+  }
+
+  if (intervalSoFar.length > 0) result.push(intervalSoFar);
+  return result;
+};
